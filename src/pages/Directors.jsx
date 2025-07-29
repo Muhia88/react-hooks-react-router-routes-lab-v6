@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import DirectorsCard from "../components/DirectorsCard";
+import React from "react";
 
 function Directors() {
   const [directors, setDirectors] = useState([]);

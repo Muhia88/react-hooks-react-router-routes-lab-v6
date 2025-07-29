@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import ActorsCard from '../components/ActorsCard';
+import React from "react";
 
 function Actors() {
   const [actors, setActors] = useState([]);

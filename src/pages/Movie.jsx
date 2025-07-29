@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import React from "react";
 
 function Movie() {
   const { id } = useParams();

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import MovieCard from "../components/MovieCard";
+import React from "react";
 
 function Home() {
   const [movies, setMovies] = useState([]);
