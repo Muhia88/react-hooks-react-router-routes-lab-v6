@@ -1,5 +1,6 @@
 
 import Home from './pages/Home';
+import React from "react";
 import Actors from './pages/Actors'; 
 import Directors from './pages/Directors';
 import Movie from './pages/Movie';
