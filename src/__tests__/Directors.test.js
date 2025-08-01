@@ -1,25 +1,4 @@
-/* global jest */
-if (!global.fetch) {
-  global.fetch = jest.fn(() =>
-    Promise.resolve({
-      json: () =>
-        Promise.resolve([
-          {
-            name: "Scott Derrickson",
-            movies: ["Doctor Strange", "Sinister", "The Exorcism of Emily Rose"],
-          },
-          {
-            name: "Mike Mitchell",
-            movies: ["Trolls", "Alvin and the Chipmunks: Chipwrecked", "Sky High"],
-          },
-          {
-            name: "Edward Zwick",
-            movies: ["Jack Reacher: Never Go Back", "Blood Diamond", "The Siege"],
-          },
-        ]),
-    })
-  );
-}
+// ...existing code...
 
 import "@testing-library/jest-dom";
 import React from "react";

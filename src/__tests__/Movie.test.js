@@ -1,19 +1,4 @@
-/* global jest */
-if (!global.fetch) {
-  global.fetch = jest.fn(() =>
-    Promise.resolve({
-      json: () =>
-        Promise.resolve([
-          {
-            id: 1,
-            title: "Doctor Strange",
-            time: 115,
-            genres: ["Action", "Adventure", "Fantasy"],
-          },
-        ]),
-    })
-  );
-}
+// ...existing code...
 
 import "@testing-library/jest-dom";
 import React from "react";
