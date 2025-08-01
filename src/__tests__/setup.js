@@ -1,4 +1,4 @@
-import { afterEach, vi } from 'vitest'
+import { afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom/vitest'
 import 'whatwg-fetch';
@@ -9,7 +9,7 @@ afterEach(() => {
 })
 
 // Global fetch mock for all tests
-global.fetch = vi.fn((url) => {
+global.fetch = jest.fn((url) => {
   if (url.includes('actors')) {
     return Promise.resolve({
       json: () => Promise.resolve([
