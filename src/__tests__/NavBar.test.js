@@ -1,41 +1,42 @@
-// ...existing code from NavBar.test.jsx...
+/* global jest */
+if (!global.fetch) {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({ json: () => Promise.resolve([]) })
+  );
+}
+
 import "@testing-library/jest-dom";
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
-let container;
-
 beforeEach(() => {
-  container = render(
+  render(
     <BrowserRouter>
       <NavBar />
     </BrowserRouter>
-  ).container;
+  );
 });
 
 test('wraps content in a div with "navbar" class', () => {
-  expect(container.querySelector(".navbar")).toBeInTheDocument();
+  expect(document.querySelector(".navbar")).toBeInTheDocument();
 });
 
-test("renders a Home <NavLink>", async () => {
-  const a = screen.queryByText(/Home/);
-
-  expect(a).toBeInTheDocument();
-  expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
-
-  expect(a.classList).toContain("active");
+test("renders a Home <NavLink>", () => {
+  const link = screen.getByText(/Home/);
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/");
+  fireEvent.click(link);
+  expect(link).toHaveClass("active");
 });
 
-test("renders a Actors <NavLink>", async () => {
-  const a = screen.queryByText(/Actors/);
-
-  expect(a).toBeInTheDocument();
-  expect(a.tagName).toBe("A");
-  expect(a.href).toContain("/");
-
-  fireEvent.click(a, { button: 0 });
+test("renders an Actors <NavLink>", () => {
+  const link = screen.getByText(/Actors/);
+  expect(link).toBeInTheDocument();
+  expect(link.tagName).toBe("A");
+  expect(link).toHaveAttribute("href", "/actors");
+  fireEvent.click(link);
+  expect(link).toHaveClass("active");
+});

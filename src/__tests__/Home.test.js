@@ -1,37 +1,48 @@
+/* global jest */
+if (!global.fetch) {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve([
+          { id: 1, title: "Doctor Strange" },
+          { id: 2, title: "Trolls" },
+          { id: 3, title: "Pitch Perfect" },
+        ]),
+    })
+  );
+}
+
 import "@testing-library/jest-dom";
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { RouterProvider, createMemoryRouter} from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import routes from "../routes";
 
-const router = createMemoryRouter(routes)
+const router = createMemoryRouter(routes);
 
 test("renders 'Home Page' inside of an <h1 />", () => {
-  render(<RouterProvider router={router}/>);
-  const h1 = screen.queryByText(/Home Page/);
+  render(<RouterProvider router={router} />);
+  const h1 = screen.getByText(/Home Page/);
   expect(h1).toBeInTheDocument();
   expect(h1.tagName).toBe("H1");
 });
 
-test("Displays a list of movie titles", async () =>{
-  render(<RouterProvider router={router}/>);
-  const titleList = await screen.findAllByRole('heading', {level: 2})
+test("Displays a list of movie titles", async () => {
+  render(<RouterProvider router={router} />);
+  const titleList = await screen.findAllByRole("heading", { level: 2 });
   expect(titleList.length).toBeGreaterThan(2);
   expect(titleList[0].tagName).toBe("H2");
   expect(titleList[0].textContent).toBe("Doctor Strange");
-})
+});
 
-test("Displays links for each associated movie", async () =>{
-  render(<RouterProvider router={router}/>);
+test("Displays links for each associated movie", async () => {
+  render(<RouterProvider router={router} />);
   const linkList = await screen.findAllByText(/View Info/);
   expect(linkList.length).toBeGreaterThan(2);
   expect(linkList[0].href.split("/").slice(3).join("/")).toBe("movie/1");
-})
+});
 
 test("renders the <NavBar /> component", () => {
-  const router = createMemoryRouter(routes)
-  render(
-      <RouterProvider router={router}/>
-  );
+  render(<RouterProvider router={router} />);
   expect(document.querySelector(".navbar")).toBeInTheDocument();
 });
